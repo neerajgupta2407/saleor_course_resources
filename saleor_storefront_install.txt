@@ -1,0 +1,7 @@
+# setup storefront 
+git clone https://github.com/mirumee/saleor-storefront.git
+cd saleor-storefront
+git checkout 2.10.1
+npm i
+  vim package.json : --host 0.0.0.0 
+npm start

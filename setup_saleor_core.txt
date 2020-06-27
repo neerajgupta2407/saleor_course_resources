@@ -1,0 +1,78 @@
+# Installing python and other essentials
+https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-an-ubuntu-18-04-server
+
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt-get update
+sudo apt-get -y upgrade
+
+sudo apt-get install python3.7 libpython3.7-dev python3-all-dev
+
+
+sudo apt install virtualenv
+sudo apt install postgresql
+sudo apt install uwsgi
+sudo apt-get install build-essential python3-dev
+
+### Setup Node
+ ### insatalling node.
+ sudo apt install npm
+
+ ## installing NVM
+ curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+
+ source ~/.profile 
+ source ~/.bashrc
+ nvm install v12
+
+
+
+
+
+### Setup Code 
+ mkdir -p codes/backend
+ cd codes/backend
+ virtualenv -p python3.7 venv
+ source venv/bin/activate
+ cd saleor
+ git fetch origin 2.10:2.10 && git checkout 2.10
+ pip install -r requirements.txt
+
+### settiing up postgres user.
+
+ sudo su - postgres
+ psql
+
+
+ CREATE ROLE saleor WITH LOGIN PASSWORD 'saleor';
+ CREATE DATABASE saleor;
+ ALTER USER saleor WITH SUPERUSER;
+
+ GRANT ALL PRIVILEGES ON DATABASE saleor TO saleor;
+ ALTER USER saleor CREATEDB;
+
+## Export these variables to os.
+
+ export ALLOWED_HOSTS=13.127.7.177
+ export ALLOWED_CLIENT_HOSTS=13.127.7.177
+ export DEBUG=True
+ export SECRET_KEY='your_secret_key'
+ export INTERNAL_IPS=127.0.0.1,13.127.7.177,
+ export DEFAULT_COUNTRY=IN
+ export DEFAULT_CURRENCY=INR
+
+
+### Applying migrations
+ python manage.py migrate
+
+## create dummy data
+ python manage.py populatedb
+ 
+## Create superuser
+ python manage.py createsuperuser
+
+## runserver
+python manage.py runserver 0.0.0.0:8000
+
+
+
+

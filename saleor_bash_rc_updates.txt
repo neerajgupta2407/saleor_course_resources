@@ -1,0 +1,11 @@
+# Update below variables in ~/.bashrc file.
+# change below x.x.x.x to your server ip or 127.0.0.1 for localhost
+export ALLOWED_HOSTS=x.x.x.x
+export ALLOWED_CLIENT_HOSTS=x.x.x.x
+export DEBUG=True
+export SECRET_KEY=123456
+export INTERNAL_IPS=127.0.0.1,x.x.x.x,
+export DEFAULT_COUNTRY=IN
+export DEFAULT_CURRENCY=INR
+export APP_MOUNT_URI=/dashboard/
+export API_URI=http://x.x.x.x:8000/graphql/

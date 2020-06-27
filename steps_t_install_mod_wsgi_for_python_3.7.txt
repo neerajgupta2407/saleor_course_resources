@@ -1,0 +1,12 @@
+1. cd ~
+2. wget https://github.com/GrahamDumpleton/mod_wsgi/archive/4.7.1.tar.gz. # get latest version from github releases.
+3. tar xvfz 4.7.1.tar.gz
+4. cd mod_wsgi-4.7.1
+
+# check python3 version
+5. which python3 or which python 3.7. # output -> /usr/bin/python3.7
+6. ./configure --with-python=/usr/bin/python3.7
+7. sudo make
+8. sudo make install
+
+## Tada..Mod_wsgi installed for python3.7

@@ -1,0 +1,5 @@
+install uwsgi  # # https://uwsgi-docs.readthedocs.io/en/latest/tutorials/Django_and_nginx.html
+Setup nginx config file.
+create mysite.sock
+
+setup pm2 service.

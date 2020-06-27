@@ -1,0 +1,26 @@
+    ### default
+    
+    server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name www.pricemenu.in;
+    root /var/www/html/storefront;
+    index index.html;
+    location / {
+        try_files $uri $uri/ /index.html?$args;
+    }
+    }
+
+
+### admin.
+## sudo ln -s /etc/nginx/sites-available/admin /etc/nginx/sites-enabled/
+    server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name admin.pricemenu.in;
+    root /var/www/html/dashboard;
+    index index.html;
+    location / {
+        try_files $uri $uri/ /index.html?$args;
+    }
+    }
