@@ -27,32 +27,6 @@
         </Directory>
 </VirtualHost>
 
-<VirtualHost *:80>
-            ServerName api.pricemenu.in
-
-            Alias /static /home/ubuntu/codes/backend/saleor/static/
-            <Directory /home/ubuntu/codes/backend/saleor/static/>
-                Require all granted
-            </Directory>
-
-             <Directory /home/ubuntu/codes/backend/saleor/saleor/wsgi/>
-                <Files wsgi.py>
-                    Require all granted
-                </Files>
-            </Directory>
-
-
-            WSGIDaemonProcess ecomapp python-path=/home/ubuntu/codes/backend/saleor/manage.py python-home=/home/ubuntu/codes/backend/venv
-            WSGIScriptAlias / /home/ubuntu/codes/backend/saleor/saleor/wsgi/wsgi.py
-            WSGIProcessGroup ecomapp
-            WSGIPassAuthorization On
-
-            WSGIDaemonProcess ecomapp python-home=/home/ubuntu/codes/backend/venv python-path=/home/ubuntu/codes/backend/saleor/
-            WSGIProcessGroup ecomapp
-
-
-</VirtualHost>
-
 
 ### Installl sudo apt-get install python3-pip apache2 libapache2-mod-wsgi-py3
 ## Enable sudo a2enmod wsgi
