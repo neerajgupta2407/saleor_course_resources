@@ -13,6 +13,10 @@ sudo apt install postgresql
 sudo apt install uwsgi
 sudo apt-get install build-essential python3-dev
 
+# Required for 2.11 and above.
+sudo apt-get install libpangocairo-1.0-0
+
+
 ### Setup Node
  ### insatalling node.
  sudo apt install npm
