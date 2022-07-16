@@ -1,0 +1,106 @@
+### Steps to setup Saleor core 3.5 omn Ubuntu 20 with python 3.8.13 uysing pyenv
+
+* Update apt-get
+* Install Postgres
+* Install pyenv
+* Setup Virtualenv and Code
+* Lets setup Django Env and run the server
+
+
+
+** Update apt-get
+	sudo add-apt-repository ppa:deadsnakes/ppa
+	sudo apt-get update
+	sudo apt-get -y upgrade
+
+* Install Postgres
+	sudo apt install postgresql
+	
+	# Setup postgres user.
+		sudo su - postgres
+
+		psql
+
+
+		CREATE ROLE saleor WITH LOGIN PASSWORD 'saleor';
+		CREATE DATABASE saleor;
+		ALTER USER saleor WITH SUPERUSER;
+
+		GRANT ALL PRIVILEGES ON DATABASE saleor TO saleor;
+		ALTER USER saleor CREATEDB;
+
+* Install pyenv
+	sudo apt-get install git python3-pip make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl
+	sudo pip install virtualenvwrapper
+
+	git clone https://github.com/yyuu/pyenv.git ~/.pyenv
+	git clone https://github.com/yyuu/pyenv-virtualenvwrapper.git ~/.pyenv/plugins/pyenv-virtualenvwrapper
+
+	echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+	echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+	echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+	echo 'pyenv virtualenvwrapper' >> ~/.bashrc
+
+	exec $SHELL
+
+* Download and use 3.8.13
+	pyenv install 3.8.13
+
+	If missing _ctype error, use 
+		https://stackoverflow.com/questions/67807596/pyenv-install-3-x-build-failed-ubuntu-20-04-using-python-build-20180424
+
+
+
+* Setup code
+	mkdir -p codes/backend
+	cd codes/backend
+	echo '3.8.13' >> .python-version
+	python -m venv venv
+	source venv/bin/activate
+	git clone https://github.com/mirumee/saleor.git
+	cd saleor
+	git fetch origin 3.5:3.5 && git checkout 3.5
+	pip install -r requirements_dev.txt
+	
+	** Package which starts giving error, can be install manually.
+	# To solve psycopg2 error, 
+	sudo apt install libpq-dev
+
+	* check by command
+		python manage.py shell
+
+
+* All installation done.
+ Lets setup Django Env and run the server
+
+	Add ENV variables.
+		# MyServer ip = 3.110.167.112
+	export ALLOWED_HOSTS=ecom.thedsacademy.in,ecomapi.thedsacademy.in,ecomadmin.thedsacademy.in
+	export ALLOWED_CLIENT_HOSTS=ecom.thedsacademy.in,ecomapi.thedsacademy.in,ecomadmin.thedsacademy.in'
+	export DEBUG=True
+	export SECRET_KEY='your_secret_key'
+	export INTERNAL_IPS=127.0.0.1,ecom.thedsacademy.in,ecomapi.thedsacademy.in,ecomadmin.thedsacademy.in
+	export DEFAULT_COUNTRY=IN
+	export DEFAULT_CURRENCY=INR
+
+	Apply Migrations
+		python manage.py migrate
+	Runserver:
+		python manage.py runserver 0.0.0.0:8080
+
+
+	Verify:
+
+		browse 3.110.167.112:8080
+		* Don't forget to add port 8080 to Ec2 inbound security rule.
+
+source ~/.bashrc
+source /home/ubuntu/codes/backend/venv/bin/activate
+ 
+python /home/ubuntu/codes/backend/saleor/manage.py runserver 0.0.0.0:8080
+
+# Populate the sample data
+python manage.py populatedb
+
+
+

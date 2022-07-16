@@ -1,0 +1,42 @@
+* Install nvm
+* Install node 16
+* setup code
+* 
+
+
+
+* Install nvm
+	how-to-install-nvm-on-ubuntu-20-04/
+	sudo apt install curl 
+	curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash 
+	source ~/.profile 
+
+	nvm install node 
+	node --version # 18.5
+
+# Install node 16
+nvm install 16
+nvm use 16
+
+* setup code
+	Repo: https://github.com/saleor/react-storefront
+
+	git clone https://github.com/saleor/react-storefront
+	nvm use 16
+	npm install -g pnpm
+	cd react-storefront/
+	pnpm i
+	# Create file .env.local 
+	
+	echo 'NEXT_PUBLIC_API_URI=http://ecomapi.thedsacademy.in:8080/graphql/' >> .env.local
+
+ 	pnpm dev
+
+ 	# Verify:
+ 	http://ecomapi.thedsacademy.in:3001
+
+
+
+
+
+
